@@ -21,5 +21,4 @@ object ResponseHandler {
 
     private fun setPageStatus(listSize: Int, loadedPage: Int, pageSize: Int): PageLoadStatus =
             PageLoadStatus(isOnLoading = false, isOnLast = listSize < pageSize, page = loadedPage)
-
 }
