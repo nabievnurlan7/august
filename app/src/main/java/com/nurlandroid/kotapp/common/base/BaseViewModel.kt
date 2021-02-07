@@ -1,24 +1,24 @@
-package com.nurlandroid.kotapp.common
+package com.nurlandroid.kotapp.common.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
-    private val viewModelJob = Job()
+    private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(Main + viewModelJob)
 
-    fun <T> doWorkInIO(doAsyncBlock: suspend CoroutineScope.() -> T) {
+    fun <T> doInIO(doAsyncBlock: suspend CoroutineScope.() -> T) {
         doCoroutineWork(doAsyncBlock, viewModelScope, IO)
     }
 
-    fun <T> doWorkInMainThread(doAsyncBlock: suspend CoroutineScope.() -> T) {
+    fun <T> doInMainThread(doAsyncBlock: suspend CoroutineScope.() -> T) {
         doCoroutineWork(doAsyncBlock, viewModelScope, Main)
     }
 
@@ -28,9 +28,9 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     private inline fun <T> doCoroutineWork(
-        crossinline doAsyncBlock: suspend CoroutineScope.() -> T,
-        coroutineScope: CoroutineScope,
-        context: CoroutineContext) {
+            crossinline doAsyncBlock: suspend CoroutineScope.() -> T,
+            coroutineScope: CoroutineScope,
+            context: CoroutineContext) {
         coroutineScope.launch {
             withContext(context) {
                 doAsyncBlock.invoke(this)

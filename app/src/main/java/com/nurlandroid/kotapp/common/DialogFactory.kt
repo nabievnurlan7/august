@@ -4,12 +4,14 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import com.nurlandroid.kotapp.R
+import kotlinx.coroutines.FlowPreview
 
 
+@FlowPreview
 object DialogFactory {
 
-    fun getProgressDialog(): ProgressFragmentDialog = ProgressFragmentDialog()
+    fun getProgressDialog(): ProgressDialog = ProgressDialog()
 
     fun getErrorDialog(context: Context): Dialog =
-        AlertDialog.Builder(context).setCancelable(true).setView(R.layout.dialog_error).create()
+            AlertDialog.Builder(context).setCancelable(true).setView(R.layout.dialog_error).create()
 }

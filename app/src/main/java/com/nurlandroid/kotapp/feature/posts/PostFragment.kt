@@ -1,44 +1,34 @@
 package com.nurlandroid.kotapp.feature.posts
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.nurlandroid.kotapp.R
-import com.nurlandroid.kotapp.common.BaseFragment
+import com.nurlandroid.kotapp.common.base.BaseFragment
 import com.nurlandroid.kotapp.databinding.FragmentPostsBinding
-import kotlinx.android.synthetic.main.fragment_posts.*
+import com.nurlandroid.kotapp.feature.posts.PostViewModel.UiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class PostFragment : BaseFragment(R.layout.fragment_posts) {
 
     private val postViewModel: PostViewModel by viewModel()
-    private lateinit var binding: FragmentPostsBinding
+    private val viewBinding: FragmentPostsBinding by viewBinding()
     private lateinit var postAdapter: PostAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentPostsBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = this@PostFragment.viewLifecycleOwner
-        }
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postViewModel.posts.observe(viewLifecycleOwner, Observer {
+        postViewModel.posts.observe(viewLifecycleOwner, {
             it?.let {
                 when (it) {
-                   // is PostViewModel.UiState.Loading -> showProgress()
-                    is PostViewModel.UiState.Data -> {
+                    is UiState.Loading -> showProgress()
+                    is UiState.Data -> {
                         closeProgress()
                         postAdapter.setItems(it.dataList)
                     }
-                    is PostViewModel.UiState.Error -> showError()
+                    is UiState.Error -> showError(it.errorType)
                 }
             }
         })
@@ -47,10 +37,11 @@ class PostFragment : BaseFragment(R.layout.fragment_posts) {
     override fun setUI() {
         super.setUI()
 
-        postAdapter = PostAdapter { item -> Timber.d(item.title) }
+        postAdapter = PostAdapter { _, _, item ->
+        }
 
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        catalogRecyclerView.apply {
+        viewBinding.catalogRecyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = postAdapter
         }
