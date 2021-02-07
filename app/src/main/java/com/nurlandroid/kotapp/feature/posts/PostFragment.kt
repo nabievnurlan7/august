@@ -33,7 +33,7 @@ class PostFragment : BaseFragment(R.layout.fragment_posts) {
         postViewModel.posts.observe(viewLifecycleOwner, Observer {
             it?.let {
                 when (it) {
-                    is PostViewModel.UiState.Loading -> showProgress()
+                   // is PostViewModel.UiState.Loading -> showProgress()
                     is PostViewModel.UiState.Data -> {
                         closeProgress()
                         postAdapter.setItems(it.dataList)
