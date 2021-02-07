@@ -2,6 +2,7 @@ package com.nurlandroid.kotapp.di
 
 import com.nurlandroid.kotapp.AppDatabase
 import com.nurlandroid.kotapp.NetworkApi
+import com.nurlandroid.kotapp.common.CommonViewModel
 import com.nurlandroid.kotapp.common.CustomFragmentFactory
 import com.nurlandroid.kotapp.experimental.networkbound.PostsRepository
 import com.nurlandroid.kotapp.feature.posts.PostRepository
@@ -15,6 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val diModule = module {
     single { CustomFragmentFactory() }
     viewModel { PostViewModel(get()) }
+    viewModel { CommonViewModel() }
 
     single { PostRepository(get()) }
     single { PostsRepository(get(), get()) }
