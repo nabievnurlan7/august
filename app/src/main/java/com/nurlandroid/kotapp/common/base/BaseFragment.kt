@@ -9,8 +9,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nurlandroid.kotapp.common.CommonViewModel
-import com.nurlandroid.kotapp.common.DialogFactory
-import com.nurlandroid.kotapp.common.ProgressDialog
+import com.nurlandroid.kotapp.common.ui.DialogFactory
+import com.nurlandroid.kotapp.common.ui.ProgressDialog
 import com.nurlandroid.kotapp.common.error.ErrorType
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 

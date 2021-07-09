@@ -1,4 +1,4 @@
-package com.nurlandroid.kotapp.common
+package com.nurlandroid.kotapp.common.ui
 
 import android.app.AlertDialog
 import android.app.Dialog

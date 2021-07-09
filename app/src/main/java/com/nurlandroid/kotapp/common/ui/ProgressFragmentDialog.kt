@@ -1,4 +1,4 @@
-package com.nurlandroid.kotapp.common
+package com.nurlandroid.kotapp.common.ui
 
 import android.annotation.SuppressLint
 import android.app.Dialog

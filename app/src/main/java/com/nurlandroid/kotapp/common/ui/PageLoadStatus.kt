@@ -1,4 +1,4 @@
-package com.nurlandroid.kotapp.common
+package com.nurlandroid.kotapp.common.ui
 
 class PageLoadStatus(
     var isOnLoading: Boolean = false,

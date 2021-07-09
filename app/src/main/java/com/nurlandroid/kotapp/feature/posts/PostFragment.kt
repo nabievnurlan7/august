@@ -2,13 +2,16 @@ package com.nurlandroid.kotapp.feature.posts
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.nurlandroid.kotapp.R
+import com.nurlandroid.kotapp.common.ui.UiState
 import com.nurlandroid.kotapp.common.base.BaseFragment
 import com.nurlandroid.kotapp.databinding.FragmentPostsBinding
-import com.nurlandroid.kotapp.feature.posts.PostViewModel.UiState
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PostFragment : BaseFragment(R.layout.fragment_posts) {
@@ -20,18 +23,18 @@ class PostFragment : BaseFragment(R.layout.fragment_posts) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postViewModel.posts.observe(viewLifecycleOwner, {
-            it?.let {
+        lifecycleScope.launch {
+            postViewModel.uiState.collect {
                 when (it) {
                     is UiState.Loading -> showProgress()
                     is UiState.Data -> {
                         closeProgress()
-                        postAdapter.setItems(it.dataList)
+                        postAdapter.setItems(it.data)
                     }
                     is UiState.Error -> showError(it.errorType)
                 }
             }
-        })
+        }
     }
 
     override fun setUI() {

@@ -1,4 +1,4 @@
-package com.nurlandroid.kotapp.common
+package com.nurlandroid.kotapp.common.ui
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
