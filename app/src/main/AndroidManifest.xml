@@ -16,14 +16,14 @@
         android:networkSecurityConfig="@xml/network"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".feature.MainActivity">
+        <activity android:name=".feature.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.profiling.TestActivity" />
     </application>
 
 </manifest>

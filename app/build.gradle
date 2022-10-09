@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.nurlandroid.kotapp"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -72,8 +72,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -85,7 +84,7 @@ dependencies {
 
     // View components
     implementation "com.github.ibrahimsn98:SmoothBottomBar:$smoothBottomBar"
-    implementation 'com.android.support:support-v4:30.0.0'
+    implementation 'com.android.support:support-v4:31.0.0'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation "com.github.smarteist:autoimageslider:$autoImageSlider"
     implementation "com.github.bumptech.glide:glide:$glide"
